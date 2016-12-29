@@ -1,5 +1,5 @@
-module.exports.index = `
-<!DOCTYPE html>
+//jshint esversion: 6
+module.exports.index = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,8 +22,7 @@ module.exports.index = `
 </html>
 Raw`;
 
-module.exports.helium = `
-<!DOCTYPE html>
+module.exports.helium = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -39,8 +38,7 @@ module.exports.helium = `
 </body>
 </html>`;
 
-module.exports.hydrogen = `
-<!DOCTYPE html>
+module.exports.hydrogen = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -62,8 +60,7 @@ module.exports.hydrogen = `
 </body>
 </html>`;
 
-module.exports.styles = `
-@import url(http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
+module.exports.styles = `@import url(http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab);
 
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126

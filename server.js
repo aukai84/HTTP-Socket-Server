@@ -8,6 +8,13 @@ let helium = htmls.helium;
 let hydrogen = htmls.hydrogen;
 let styles = htmls.styles;
 
+let header = `HTTP/1.1 200 OK
+Server: nginx/1.4.6 (Ubuntu)
+Date: Wed, 08 Jul 2015 22:31:15 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: ${hydrogen.length}
+Connection: keep-alive\n`;
+console.log(hydrogen.length);
 var server = net.createServer(function (socket) {
 
   socket.setEncoding('utf8');
@@ -17,10 +24,40 @@ var server = net.createServer(function (socket) {
   });
 
   socket.on('data', function(data){
+
     console.log(data);
+    let requestArray = data.split('\r\n');
+    let anotherArray = [];
+    for(let i =0; i < requestArray.length; i++){
+    anotherArray.push(requestArray[i].split(' '));
+  }
+  console.log(anotherArray);
+    if(anotherArray[0][0] === 'GET'){
+      if(anotherArray[0][1] === '/hydrogen.html'){
+       socket.write(`${header}\n${hydrogen}`);
+       console.log(`${header}\n${hydrogen}`);
+      } else if(anotherArray[0][1] === '/helium.html'){
+        socket.write(`${header}\n${helium}`);
+      } else if(anotherArray[0][1] === '/index.html'){
+        socket.write(`${header}\n${index}`);
+      }
+    }
+
+    // if(anotherArray[0][0] === 'HEAD'){
+    //   if(anotherArray[0][1] === '/hydrogen.html'){
+    //      socket.write(header);
+    //   } else if(anotherArray[0][1] === '/helium.html'){
+    //     socket.write(header);
+    //   } else if(anotherArray[0][1] === '/index.html'){
+    //     socket.write(header);
+    //   }
+    // }
+    socket.end();
+
   });
 
-  socket.end(helium);
+
+
 
   // socket.write('Echo server\r\n');
   // socket.pipe(socket);
