@@ -1,16 +1,29 @@
 //jshint esversion: 6
 
 const net = require('net');
+const htmls = require('./htmlSource.js');
 
-let server = net.createServer((request, response) => {
+let index = htmls.index;
+let helium = htmls.helium;
+let hydrogen = htmls.hydrogen;
+let styles = htmls.styles;
 
-  request.write(`Welcome to the server!\n`);
-  request.pipe(request);
+var server = net.createServer(function (socket) {
 
-  request.on('data', )
+  socket.setEncoding('utf8');
 
+  socket.on('error', function(err) {
+    console.error('SOCKET ERROR:', err);
+  });
 
+  socket.on('data', function(data){
+    console.log(data);
+  });
 
+  socket.end(helium);
+
+  // socket.write('Echo server\r\n');
+  // socket.pipe(socket);
 });
 
 server.listen(8080, '0.0.0.0', () => {

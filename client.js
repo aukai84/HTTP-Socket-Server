@@ -3,8 +3,8 @@
 const net = require('net');
 
 let client = net.createConnection(8080, 'localhost');
-
-client.on("connect", (chunk) => {
+client.on("connect", () => {
+  process.stdin.pipe(client);
   console.log("connected...");
 });
 
