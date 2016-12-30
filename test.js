@@ -1,13 +1,17 @@
+// jshint esversion: 6
+
 const net = require('net');
-const client = net.connect({port: 8180}, () => {
-  // 'connect' listener
-  console.log('connected to server!');
-  client.write('world!\r\n');
-});
-client.on('data', (data) => {
-  console.log(data.toString());
-  client.end();
-});
-client.on('end', () => {
-  console.log('disconnected from server');
+const proxy = net.createConnection(8080, 'localhost');
+
+proxy.on('connect', (req, cltSocket, head) => {
+  // connect to an origin server
+  var srvUrl = url.parse(`http://${req.url}`);
+  var srvSocket = net.connect(srvUrl.port, srvUrl.hostname, () => {
+    cltSocket.write('HTTP/1.1 200 Connection Established\r\n' +
+                    'Proxy-agent: Node.js-Proxy\r\n' +
+                    '\r\n');
+    srvSocket.write(head);
+    srvSocket.pipe(cltSocket);
+    cltSocket.pipe(srvSocket);
+  });
 });
