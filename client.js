@@ -25,8 +25,8 @@ client.on("connect", () => {
 
 client.on("data", (chunk) => {
   console.log(chunk);
+  client.end();
 });
-
 
 
 
