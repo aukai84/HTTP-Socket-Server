@@ -8,11 +8,25 @@ let helium = htmls.helium;
 let hydrogen = htmls.hydrogen;
 let styles = htmls.styles;
 
-let header = `HTTP/1.1 200 OK
+let hydrogenHeader = `HTTP/1.1 200 OK
 Server: nginx/1.4.6 (Ubuntu)
 Date: Wed, 08 Jul 2015 22:31:15 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: ${hydrogen.length}
+Connection: keep-alive\n`;
+
+let heliumHeader = `HTTP/1.1 200 OK
+Server: nginx/1.4.6 (Ubuntu)
+Date: Wed, 08 Jul 2015 22:31:15 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: ${helium.length}
+Connection: keep-alive\n`;
+
+let indexHeader = `HTTP/1.1 200 OK
+Server: nginx/1.4.6 (Ubuntu)
+Date: Wed, 08 Jul 2015 22:31:15 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: ${index.length}
 Connection: keep-alive\n`;
 console.log(hydrogen.length);
 var server = net.createServer(function (socket) {
@@ -34,12 +48,11 @@ var server = net.createServer(function (socket) {
   console.log(anotherArray);
     if(anotherArray[0][0] === 'GET'){
       if(anotherArray[0][1] === '/hydrogen.html'){
-       socket.write(`${header}\n${hydrogen}`);
-       console.log(`${header}\n${hydrogen}`);
+       socket.write(`${hydrogenHeader}\n${hydrogen}`);
       } else if(anotherArray[0][1] === '/helium.html'){
-        socket.write(`${header}\n${helium}`);
+        socket.write(`${heliumHeader}\n${helium}`);
       } else if(anotherArray[0][1] === '/index.html'){
-        socket.write(`${header}\n${index}`);
+        socket.write(`${indexHeader}\n${index}`);
       }
     }
 
