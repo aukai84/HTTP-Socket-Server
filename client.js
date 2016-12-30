@@ -1,19 +1,33 @@
 //jshint esversion: 6
-
 const net = require('net');
 var url = '';
+let PORT = 8080;
+let HOST = 'localhost';
 
 process.argv.forEach(function (val, index, array) {
   url = array;
 });
 
-let client = net.createConnection(80, 'www.google.com');
+console.log(url);
+PORT = 80;
+HOST = url[2];
+console.log(HOST);
+
+let client = net.createConnection(PORT, HOST);
+
+client.setEncoding('utf8');
 
 client.on("connect", () => {
-  process.stdin.pipe(client);
-  console.log("connected...");
+  //process.stdin.pipe(client);
+  console.log(`connected to ${HOST}`);
+  client.write(`GET / HTTP/1.1\nHost: ${HOST}\nConnection: Keep-Alive\n\n`);
 });
 
 client.on("data", (chunk) => {
-  process.stdout.write(chunk);
+  console.log(chunk);
 });
+
+
+
+
+
