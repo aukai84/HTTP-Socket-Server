@@ -11,7 +11,12 @@ process.argv.forEach(function (val, index, array) {
 console.log(url);
 PORT = 80;
 HOST = url[2];
-console.log(HOST);
+
+if (HOST === 'localhost'){
+  PORT = 8080;
+} else {
+  PORT = 80;
+}
 
 let client = net.createConnection(PORT, HOST);
 

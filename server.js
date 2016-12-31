@@ -56,24 +56,19 @@ var server = net.createServer(function (socket) {
       }
     }
 
-    // if(anotherArray[0][0] === 'HEAD'){
-    //   if(anotherArray[0][1] === '/hydrogen.html'){
-    //      socket.write(header);
-    //   } else if(anotherArray[0][1] === '/helium.html'){
-    //     socket.write(header);
-    //   } else if(anotherArray[0][1] === '/index.html'){
-    //     socket.write(header);
-    //   }
-    // }
+    if(anotherArray[0][0] === 'HEAD'){
+      if(anotherArray[0][1] === '/hydrogen.html'){
+         socket.write(header);
+      } else if(anotherArray[0][1] === '/helium.html'){
+        socket.write(header);
+      } else if(anotherArray[0][1] === '/index.html'){
+        socket.write(header);
+      }
+    }
     socket.end();
 
   });
 
-
-
-
-  // socket.write('Echo server\r\n');
-  // socket.pipe(socket);
 });
 
 server.listen(8080, '0.0.0.0', () => {
