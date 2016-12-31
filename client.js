@@ -1,24 +1,24 @@
 //jshint esversion: 6
 const net = require('net');
 var url = '';
-let PORT = 8080;
-let HOST = 'localhost';
+let port = 8080;
+let host = 'localhost';
 
 process.argv.forEach(function (val, index, array) {
   url = array;
 });
 
 console.log(url);
-PORT = 80;
-HOST = url[2];
+port = 80;
+host = url[2];
 
-if (HOST === 'localhost'){
-  PORT = 8080;
+if (host === 'localhost'){
+  port = 8080;
 } else {
-  PORT = 80;
+  port = 80;
 }
 
-let client = net.createConnection(PORT, HOST);
+let client = net.createConnection(port, host);
 
 client.setEncoding('utf8');
 
